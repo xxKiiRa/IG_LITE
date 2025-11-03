@@ -38,7 +38,6 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        // Stories horizontal
         b.rvStories.apply {
             layoutManager = LinearLayoutManager(
                 this@MainActivity,
@@ -48,7 +47,6 @@ class MainActivity : AppCompatActivity() {
             adapter = StoryAdapter(SampleStories.items)
         }
 
-        // Posts vertical
         postAdapter = PostAdapter(
             onEdit = { post -> showAddEditDialog(post) },
             onDelete = { post ->
@@ -61,14 +59,12 @@ class MainActivity : AppCompatActivity() {
             adapter = postAdapter
         }
 
-        // Observasi database
         lifecycleScope.launch {
             vm.postsFlow.collectLatest { posts ->
-                postAdapter.submitList(posts) // <-- tanpa named argument
+                postAdapter.submitList(posts) 
             }
         }
 
-        // Tambah post
         b.fabAdd.setOnClickListener { showAddEditDialog(null) }
     }
 
